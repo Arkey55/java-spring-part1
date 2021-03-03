@@ -22,4 +22,14 @@ public class Cart {
         productRepository.addToList(p5);
     }
 
+    public Product getProductByID(int id){
+        for (Product p : productRepository.getProducts()){
+            if (p.getId() == id){
+                return p;
+            }
+        }
+        System.out.println("Данный продукт не найден");
+        return null;
+    }
+
 }

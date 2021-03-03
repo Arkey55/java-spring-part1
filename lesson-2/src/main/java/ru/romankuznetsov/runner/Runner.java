@@ -20,9 +20,10 @@ public class Runner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         cart.addAllProducts();
-        for (Product p : productRepository.getProducts()){
-            System.out.println(p.toString());
-        }
+//        for (Product p : productRepository.getProducts()){
+//            System.out.println(p.toString());
+//        }
+        System.out.println(cart.getProductByID(2));
     }
 
 }
