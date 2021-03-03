@@ -8,11 +8,11 @@ import java.io.IOException;
 
 @Component
 public class PrintToFile implements Print {
-
+    private String string = "all was printed";
     @Override
-    public void print(String text) {
+    public void print() {
         try(BufferedWriter bw = new BufferedWriter(new FileWriter("D:\\testDir\\test.txt"))){
-            bw.write(text);
+            bw.write(string);
         } catch (IOException e){
             e.printStackTrace();
         }
