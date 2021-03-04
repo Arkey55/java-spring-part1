@@ -13,16 +13,8 @@ public class Product {
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     @Override
@@ -42,10 +34,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+        return String.format("id: [%s], наименование: [%s], цена: [%s]", id, name, price);
     }
 }

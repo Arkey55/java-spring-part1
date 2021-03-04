@@ -1,29 +1,32 @@
 package ru.romankuznetsov.runner;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
-import ru.romankuznetsov.entity.Cart;
-import ru.romankuznetsov.entity.Product;
 import ru.romankuznetsov.entity.ProductRepository;
+import ru.romankuznetsov.util.ConsoleInput;
+import ru.romankuznetsov.util.InfoMessage;
 
 
 @Service
 public class Runner implements CommandLineRunner {
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private Cart cart;
+    private final ProductRepository productRepo;
+    private final ConsoleInput consoleInput;
+    private final InfoMessage info;
 
-
+    public Runner(ProductRepository productRepo,
+                  ConsoleInput consoleInput,
+                  InfoMessage info) {
+        this.productRepo = productRepo;
+        this.consoleInput = consoleInput;
+        this.info = info;
+    }
 
     @Override
     public void run(String... args) throws Exception {
-        cart.addAllProducts();
-//        for (Product p : productRepository.getProducts()){
-//            System.out.println(p.toString());
-//        }
-        System.out.println(cart.getProductByID(2));
+        productRepo.formRepository();
+        info.printInfoMsg();
+        consoleInput.scanConsoleInput();
     }
+
 
 }

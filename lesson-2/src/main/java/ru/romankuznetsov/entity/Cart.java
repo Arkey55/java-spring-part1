@@ -1,35 +1,88 @@
 package ru.romankuznetsov.entity;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
+@Scope("prototype")
 public class Cart {
-    @Autowired
-    private ProductRepository productRepository;
 
-    private Product p1 = new Product(1, "p1", 10);
-    private Product p2 = new Product(2, "p2", 7);
-    private Product p3 = new Product(3, "p3", 13);
-    private Product p4 = new Product(4, "p4", 20);
-    private Product p5 = new Product(5, "p5", 4);
+    private final ProductRepository productRepository;
+    private final List<Product> cart;
 
-    public void addAllProducts(){
-        productRepository.addToList(p1);
-        productRepository.addToList(p2);
-        productRepository.addToList(p3);
-        productRepository.addToList(p4);
-        productRepository.addToList(p5);
+    public Cart(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+        this.cart = new ArrayList<>();
     }
 
-    public Product getProductByID(int id){
-        for (Product p : productRepository.getProducts()){
-            if (p.getId() == id){
-                return p;
-            }
+    public void receiveRequest(String s){
+        String[] cmd = s.split("\\s");
+        switch (cmd[0].toUpperCase()) {
+            case "ADD":
+                if (cmd.length == 2) {
+                    addToCart(cmd[1]);
+                } else printErrorMsg();
+                break;
+            case "DEL":
+                if (cmd.length == 2) {
+                    removeFromCart(cmd[1]);
+                } else printErrorMsg();
+                break;
+            case "CART":
+                if (cmd.length == 1) {
+                    if (cart.size() == 0) {
+                        System.out.println("Корзина пуста...");
+                    } else {
+                        showCart();
+                    }
+                } else printErrorMsg();
+                break;
+            case "LIST":
+                if (cmd.length == 1) {
+                    productRepository.showProductsInRepo();
+                } else {
+                    printErrorMsg();
+                }
+                break;
+            default:
+                printErrorMsg();
+                break;
         }
-        System.out.println("Данный продукт не найден");
-        return null;
+    }
+
+    private void addToCart(String s){
+        int id = Integer.parseInt(s);
+        if (cart.stream().noneMatch(product -> product.getId().equals(id))) {
+            if (productRepository.getProductByID(id) != null){
+                cart.add(productRepository.getProductByID(id));
+                System.out.println(productRepository.getProductByID(id) + " добавлен в корзину");
+            } else {
+                System.out.println("Данный продукт не найден");
+            }
+        } else {
+            System.out.println("Товар уже в корзине");
+        }
+    }
+
+    private void removeFromCart(String s){
+        int id = Integer.parseInt(s);
+        if (cart.removeIf(product -> product.getId().equals(id))){
+            System.out.println("Товар удален из корзины: " + productRepository.getProductByID(id));
+        } else {
+            System.out.println("Товар не найден");
+        }
+
+    }
+
+    private void showCart(){
+        cart.forEach(System.out::println);
+    }
+
+    private void printErrorMsg(){
+        System.out.println("Неизвестная команда");
     }
 
 }
