@@ -1,6 +1,7 @@
-package ru.romankuznetsov.entity;
+package ru.romankuznetsov.service;
 
 import org.springframework.stereotype.Component;
+import ru.romankuznetsov.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;

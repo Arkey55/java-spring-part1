@@ -1,8 +1,7 @@
 package ru.romankuznetsov.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.romankuznetsov.entity.Cart;
+import ru.romankuznetsov.service.Cart;
 
 import java.util.Scanner;
 

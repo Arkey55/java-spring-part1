@@ -2,7 +2,7 @@ package ru.romankuznetsov.runner;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
-import ru.romankuznetsov.entity.ProductRepository;
+import ru.romankuznetsov.service.ProductRepository;
 import ru.romankuznetsov.util.ConsoleInput;
 import ru.romankuznetsov.util.InfoMessage;
 
