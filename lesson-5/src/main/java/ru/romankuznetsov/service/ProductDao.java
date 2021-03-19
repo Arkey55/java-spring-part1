@@ -1,4 +1,4 @@
-package ru.romankuznetsov;
+package ru.romankuznetsov.service;
 
 import org.hibernate.cfg.Configuration;
 import ru.romankuznetsov.entity.Product;
@@ -14,9 +14,10 @@ public class ProductDao {
     private EntityManagerFactory factory = new Configuration()
             .configure("hibernate.xml")
             .buildSessionFactory();
-    private EntityManager em = factory.createEntityManager();
+//    private EntityManager em = factory.createEntityManager();
 
     public Optional<Product> findByID(long id){
+        EntityManager em = factory.createEntityManager();
         Query query = em.createQuery("select p from Product p where p.id = :id");
         query.setParameter("id", id);
         Product product = null;
@@ -29,22 +30,24 @@ public class ProductDao {
     }
 
     public List<Product> findAll(){
+        EntityManager em = factory.createEntityManager();
         return em.createNamedQuery("Product.findAll", Product.class).getResultList();
     }
 
     public void deleteByID(long id){
-        Product product = em.find(Product.class, id);
-        if (product != null){
+        EntityManager em = factory.createEntityManager();
+        Optional <Product> product = findByID(id);
+        if (product.isPresent()){
             em.getTransaction().begin();
-            em.remove(product);
-            System.out.printf("%s - deleted \n", product.toString());
+            Query query = em.createQuery("delete from Product p where p.id = :id");
+            query.setParameter("id", id).executeUpdate();
             em.getTransaction().commit();
-        } else {
-            System.out.println("No such product in a db...");
+            System.out.printf("%s - deleted successfully \n", product.toString());
         }
     }
 
     public void saveOrUpdate(Product product){
+        EntityManager em = factory.createEntityManager();
         Query query = em.createQuery("select p from Product p where p.id = :id");
         query.setParameter("id", product.getId());
         Product product1;

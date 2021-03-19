@@ -1,14 +1,11 @@
 package ru.romankuznetsov;
 
 import org.hibernate.cfg.Configuration;
-import ru.romankuznetsov.entity.Person;
 import ru.romankuznetsov.entity.Product;
+import ru.romankuznetsov.service.ProductDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
@@ -61,8 +58,8 @@ public class Application {
         ProductDao p = new ProductDao();
         Product product = new Product(7L, "Toy", 1032);
 //        p.saveOrUpdate(product);
-//        p.deleteByID(4L);
+        p.deleteByID(3L);
         p.findAll().forEach(System.out::println);
-        p.findByID(3L).ifPresent(System.out::println);
+//        p.findByID(3L).ifPresent(System.out::println);
     }
 }
