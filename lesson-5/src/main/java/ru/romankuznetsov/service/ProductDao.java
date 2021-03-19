@@ -14,7 +14,6 @@ public class ProductDao {
     private EntityManagerFactory factory = new Configuration()
             .configure("hibernate.xml")
             .buildSessionFactory();
-//    private EntityManager em = factory.createEntityManager();
 
     public Optional<Product> findByID(long id){
         EntityManager em = factory.createEntityManager();
@@ -48,20 +47,25 @@ public class ProductDao {
 
     public void saveOrUpdate(Product product){
         EntityManager em = factory.createEntityManager();
-        Query query = em.createQuery("select p from Product p where p.id = :id");
-        query.setParameter("id", product.getId());
-        Product product1;
-        try{
-            product1 = (Product) query.getSingleResult();
+        Optional <Product> optional = findByID(product.getId());
+        if (optional.isPresent()){
             em.getTransaction().begin();
-            query = em.createQuery("update Product p set p.title = :title, p.price = :price where id = :id");
-            query.setParameter("id", product.getId());
+            Query query = em.createQuery("update Product p set p.title = :title, p.price = :price where p.id = :id");
             query.setParameter("title", product.getTitle());
             query.setParameter("price", product.getPrice());
+            query.setParameter("id", product.getId());
+            query.executeUpdate();
             em.getTransaction().commit();
-        } catch (NoResultException e){
-            System.out.println("111");
+            System.out.printf("Product [%s] updated \n", product.toString());
+        } else {
+            em.getTransaction().begin();
+            Query query = em.createNativeQuery("insert into product (id, title, price) values (:id, :title, :price)");
+            query.setParameter("title", product.getTitle());
+            query.setParameter("price", product.getPrice());
+            query.setParameter("id", product.getId());
+            query.executeUpdate();
+            em.getTransaction().commit();
+            System.out.printf("Product [%s] added \n", product.toString());
         }
-
     }
 }
