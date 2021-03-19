@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.Optional;
 
 public class ProductDao {
     private EntityManagerFactory factory = new Configuration()
@@ -14,16 +15,11 @@ public class ProductDao {
             .buildSessionFactory();
     private EntityManager em = factory.createEntityManager();
 
-    public void findByID(long id){
+    public Optional<Product> findByID(long id){
         Query query = em.createQuery("select p from Product p where p.id = :id");
         query.setParameter("id", id);
-        Product product;
-        try{
-            product = (Product) query.getSingleResult();
-            System.out.println(product.toString());
-        } catch (NoResultException e){
-            System.out.println("No such product in db...");
-        }
+        Product product = (Product) query.getSingleResult();
+        return Optional.ofNullable(product);
     }
 
     public void findAll(){

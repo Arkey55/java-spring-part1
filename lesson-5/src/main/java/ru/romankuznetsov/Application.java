@@ -60,9 +60,9 @@ public class Application {
 
         ProductDao p = new ProductDao();
         Product product = new Product(7L, "Toy", 1032);
-        p.saveOrUpdate(product);
+//        p.saveOrUpdate(product);
 //        p.deleteByID(4L);
         p.findAll();
-//        p.findByID(3L);
+        p.findByID(4L).ifPresent(System.out::println);
     }
 }
