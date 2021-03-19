@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.List;
 import java.util.Optional;
 
 public class ProductDao {
@@ -18,13 +19,17 @@ public class ProductDao {
     public Optional<Product> findByID(long id){
         Query query = em.createQuery("select p from Product p where p.id = :id");
         query.setParameter("id", id);
-        Product product = (Product) query.getSingleResult();
+        Product product = null;
+        try {
+            product = (Product) query.getSingleResult();
+        } catch (NoResultException e){
+            System.out.println("No such product in the db...");
+        }
         return Optional.ofNullable(product);
     }
 
-    public void findAll(){
-        em.createNamedQuery("Product.findAll", Product.class).getResultList()
-                .forEach(System.out::println);
+    public List<Product> findAll(){
+        return em.createNamedQuery("Product.findAll", Product.class).getResultList();
     }
 
     public void deleteByID(long id){
