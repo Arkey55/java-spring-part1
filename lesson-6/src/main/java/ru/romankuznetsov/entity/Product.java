@@ -1,6 +1,7 @@
 package ru.romankuznetsov.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -12,6 +13,9 @@ public class Product {
     private String title;
     @Column(name = "price")
     private int price;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Person> persons;
 
     public Product() {
     }
@@ -38,6 +42,14 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 
     @Override

@@ -5,10 +5,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "person")
-@NamedQueries({
-        @NamedQuery(name = "Person.findAll", query = "select p from Person p"),
-        @NamedQuery(name = "Person.findAllNames", query = "select p.firstName from Person p")
-})
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,9 +26,8 @@ public class Person {
     @ManyToMany
     @JoinTable(name = "transactions",
             joinColumns = @JoinColumn(name = "person_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Product> productList;
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products;
 
     public long getId() {
         return id;
@@ -58,12 +53,12 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProducts(List<Product> productList) {
+        this.products = productList;
     }
 
     @Override

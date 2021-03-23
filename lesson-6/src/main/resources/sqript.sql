@@ -34,4 +34,5 @@ select t.id, t.person_id,
        trans_date
 from transactions t
          left join person pe on t.person_id = pe.id
-         left join product pr on t.product_id = pr.id;
+         left join product pr on t.product_id = pr.id
+where pe.id = :id;
