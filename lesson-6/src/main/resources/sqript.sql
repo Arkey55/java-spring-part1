@@ -22,3 +22,16 @@ create table transactions(
                              product_id bigint references product(id),
                              trans_date datetime default current_timestamp
 );
+
+insert into transactions (person_id, product_id)
+values (4, 2), (3, 1), (3, 2), (1, 4), (2, 3), (2, 5),
+       (3, 1), (2, 5), (1, 3), (4, 4), (3, 5), (4, 1);
+
+select t.id, t.person_id,
+       concat(pe.first_name, ' ', pe.last_name) as person,
+       t.product_id,
+       pr.title, pr.price,
+       trans_date
+from transactions t
+         left join person pe on t.person_id = pe.id
+         left join product pr on t.product_id = pr.id;
