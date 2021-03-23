@@ -19,9 +19,6 @@ values ('Ruslan', 'Vorontsov'), ('Pavel', 'Bobrov'), ('Kristina', 'Kovalenko'), 
 create table transactions(
                              id serial primary key,
                              person_id bigint references person(id),
-                             person_name varchar(128),
                              product_id bigint references product(id),
-                             product_title varchar(128),
-                             product_price int,
                              trans_date datetime default current_timestamp
 );

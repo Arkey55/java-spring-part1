@@ -1,6 +1,7 @@
 package ru.romankuznetsov.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -26,6 +27,13 @@ public class Person {
         this.lastName = lastName;
     }
 
+    @ManyToMany
+    @JoinTable(name = "transactions",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> productList;
+
     public long getId() {
         return id;
     }
@@ -48,6 +56,14 @@ public class Person {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 
     @Override
