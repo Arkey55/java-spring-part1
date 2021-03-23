@@ -14,7 +14,7 @@
         <property name="hbm2ddl.auto">none</property>
 
 <!--        <mapping class="ru.romankuznetsov.entity.Person"/>-->
-<!--        <mapping class="ru.romankuznetsov.entity.Product"/>-->
+        <mapping class="ru.romankuznetsov.entity.Product"/>
         <mapping class="ru.romankuznetsov.vebinar.entity.Person"/>
         <mapping class="ru.romankuznetsov.vebinar.entity.City"/>
         <mapping class="ru.romankuznetsov.vebinar.entity.Child"/>

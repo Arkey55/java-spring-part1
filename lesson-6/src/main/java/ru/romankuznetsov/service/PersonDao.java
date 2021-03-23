@@ -11,7 +11,6 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-@Component
 public class PersonDao implements EntityDao<Person> {
     private EntityManagerFactory factory = new Configuration()
             .configure("hibernate.xml")
