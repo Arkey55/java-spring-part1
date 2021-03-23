@@ -15,9 +15,6 @@
 
         <mapping class="ru.romankuznetsov.entity.Person"/>
         <mapping class="ru.romankuznetsov.entity.Product"/>
-<!--        <mapping class="ru.romankuznetsov.vebinar.entity.Person"/>-->
-<!--        <mapping class="ru.romankuznetsov.vebinar.entity.City"/>-->
-<!--        <mapping class="ru.romankuznetsov.vebinar.entity.Child"/>-->
 
     </session-factory>
 </hibernate-configuration>

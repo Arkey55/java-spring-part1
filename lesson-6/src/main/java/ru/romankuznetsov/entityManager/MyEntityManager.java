@@ -12,7 +12,7 @@ public class MyEntityManager {
     private EntityManagerFactory factory = new Configuration()
             .configure("hibernate.xml")
             .buildSessionFactory();
-    @Bean
+
     public EntityManager getEm(){
         return factory.createEntityManager();
     }

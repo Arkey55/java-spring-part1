@@ -28,13 +28,13 @@ public class DBManager {
     }
 
     public List findProductsByPersonId(long id){
-        Query query = em.createQuery("select p from Person p where p.id = :id", Person.class);
+        Query query = em.createQuery("select p from Product p left join p.persons ps where ps.id = :id", Product.class);
         query.setParameter("id", id);
         return query.getResultList();
     }
 
     public List findPersonsByProductId(long id){
-        Query query = em.createQuery("select p from Product p where p.id = :id", Product.class);
+        Query query = em.createQuery("select p from Person p left join p.products pr where pr.id = :id", Person.class);
         query.setParameter("id", id);
         return query.getResultList();
     }
