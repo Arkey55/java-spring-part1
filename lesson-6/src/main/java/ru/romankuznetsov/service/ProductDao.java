@@ -42,34 +42,17 @@ public class ProductDao implements EntityDao<Product> {
     }
 
     @Override
-    public void save(Product product) {
-
-    }
-
-    @Override
-    public void update(Product product, String[] params) {
-
-    }
-
     public void saveOrUpdate(Product product){
         EntityManager em = factory.createEntityManager();
         Optional <Product> optional = findByID(product.getId());
         if (optional.isPresent()){
             em.getTransaction().begin();
-            Query query = em.createQuery("update Product p set p.title = :title, p.price = :price where p.id = :id");
-            query.setParameter("title", product.getTitle());
-            query.setParameter("price", product.getPrice());
-            query.setParameter("id", product.getId());
-            query.executeUpdate();
+            em.merge(product);
             em.getTransaction().commit();
             System.out.printf("Product [%s] updated \n", product.toString());
         } else {
             em.getTransaction().begin();
-            Query query = em.createNativeQuery("insert into product (id, title, price) values (:id, :title, :price)");
-            query.setParameter("title", product.getTitle());
-            query.setParameter("price", product.getPrice());
-            query.setParameter("id", product.getId());
-            query.executeUpdate();
+            em.persist(product);
             em.getTransaction().commit();
             System.out.printf("Product [%s] added \n", product.toString());
         }

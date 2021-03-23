@@ -10,6 +10,5 @@ public interface EntityDao<T> {
     public Optional<T> findByID(long id);
     public List<T> findAll();
     public void deleteByID(long id);
-    void save(T t);
-    void update(T t, String[] params);
+    void saveOrUpdate(T t);
 }
