@@ -26,7 +26,7 @@ public class Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        List list1 = manager.findProductsByPersonId(2L);
+        List list1 = manager.findProductsByPersonId(4L);
         list1.forEach(System.out::println);
         List list2 = manager.findPersonsByProductId(5L);
         list2.forEach(System.out::println);

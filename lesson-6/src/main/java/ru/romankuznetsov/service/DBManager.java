@@ -1,7 +1,7 @@
 package ru.romankuznetsov.service;
 
 import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.romankuznetsov.entity.Person;
 import ru.romankuznetsov.entity.Product;
 
@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import java.util.List;
 
-@Component
+@Repository
 public class DBManager {
     private EntityManagerFactory factory;
     private EntityManager em;

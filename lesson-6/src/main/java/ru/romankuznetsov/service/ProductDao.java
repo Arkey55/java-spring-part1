@@ -1,7 +1,7 @@
 package ru.romankuznetsov.service;
 
 import org.hibernate.cfg.Configuration;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.romankuznetsov.entity.Product;
 
 import javax.persistence.EntityManager;
@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-@Component
+@Repository
 public class ProductDao implements EntityDao<Product> {
 
     private EntityManagerFactory factory;
